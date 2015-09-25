@@ -12847,6 +12847,7 @@ XsltForms_upload.prototype.change = function() {
 							xf.valueChanged(content);
 						}
 					};
+					fr.readAsArrayBuffer(file);
 				} else if (xf.type.name === "hexBinary") {
 					fr.onload = function(e) {
 						var bytes = new Uint8Array(e.target.result);
@@ -12860,6 +12861,7 @@ XsltForms_upload.prototype.change = function() {
 							xf.valueChanged(content);
 						}
 					};
+					fr.readAsArrayBuffer(file);
 				} else if (xf.type.name === "base64Binary") {
 					fr.onload = function(e) {
 						var bytes = new Uint8Array(e.target.result);
@@ -12883,16 +12885,17 @@ XsltForms_upload.prototype.change = function() {
 							xf.valueChanged(content);
 						}
 					};
+					fr.readAsArrayBuffer(file);
 				} else {
 					fr.onload = function(e) {
 						XsltForms_upload.contents[xf.element.id] = e.target.result;
-						xf.value = "file://" + filename + "?id=" + xf.element.id;
+						xf.value = e.target.result;
 						if (xf.incremental) {
 							xf.valueChanged(xf.value);
 						}
 					};
+					fr.readAsDataURL(file);
 				}
-				fr.readAsArrayBuffer(file);
 			}
 		} catch (e) {
 			content = XsltForms_browser.readFile(xf.input.value, "ISO-8859-1", xf.type.name, "");
